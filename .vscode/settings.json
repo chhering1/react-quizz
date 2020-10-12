@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "*.js": "javascriptreact"
+    },
+    "files.exclude": {
+        ".cache/": true,
+        "dist": true,
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true
+    }
+}
