@@ -1,8 +1,11 @@
 import React from 'react';
 import { css } from "emotion"
 import Message from './Message';
+import Question from './Questions';
 
 const Main = () => {
+    const user = sessionStorage.getItem('userName') ;
+console.log(user) 
     const grid = css`
     display:grid;
     margin:0;
@@ -17,7 +20,7 @@ const Main = () => {
 background-color : #1394B0;
              .info {
                  background-color:#164752;
-                 /* border: 1px solid white; */
+                 font-size:2em;
                  color:white;
                  text-align:center;
                  padding:1em;
@@ -44,12 +47,11 @@ background-color : #1394B0;
 <h2 className="quiz">Quizz App</h2>
         </main>
         <section className={part}>
-<Message />
-            {/* <div className="info">
-<h1>Please enter your name to continue!</h1>
-<input type="text" name="" id="" placeholder="name"/>
-</div> */}
-        </section>
+            {/* { user ? <Message /> : <Question /> } */}
+    <Message> </Message>
+    {/* <Question /> */}
+                   </section>
+                   
         </div>
      );
 }

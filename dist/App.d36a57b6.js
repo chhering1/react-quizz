@@ -32682,7 +32682,79 @@ exports.merge = merge;
 exports.cx = cx;
 exports.hydrate = hydrate;
 exports.flush = flush;
-},{"create-emotion":"../node_modules/create-emotion/dist/create-emotion.browser.esm.js"}],"Components/Message.js":[function(require,module,exports) {
+},{"create-emotion":"../node_modules/create-emotion/dist/create-emotion.browser.esm.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
+
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
+
+  return bundleURL;
+}
+
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+}
+
+module.exports = reloadCSS;
+},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"Components/questions.css":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"Components/Questions.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -32690,37 +32762,195 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
+
+require("./questions.css");
+
+var _Message = _interopRequireDefault(require("./Message"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const Question = ({
+  name
+}) => {
+  const user = localStorage.getItem('userName');
+  console.log(user);
+  const [currentQuestion, setCurrentQuestion] = (0, _react.useState)(0);
+  const [showScore, setShowScore] = (0, _react.useState)(false);
+  const [score, setScore] = (0, _react.useState)(0);
+
+  const handleAnswerButtonClick = isCorrect => {
+    if (isCorrect) {
+      setScore(score + 1);
+    }
+
+    const nextQuestion = currentQuestion + 1;
+    setCurrentQuestion(nextQuestion);
+
+    if (nextQuestion < questions.length) {
+      setCurrentQuestion(nextQuestion);
+    } else {
+      setShowScore(true);
+    }
+  };
+
+  const questions = [{
+    questionText: 'What is the capital of France?',
+    answerOptions: [{
+      answerText: 'New York',
+      isCorrect: false
+    }, {
+      answerText: 'London',
+      isCorrect: false
+    }, {
+      answerText: 'Paris',
+      isCorrect: true
+    }, {
+      answerText: 'Dublin',
+      isCorrect: false
+    }]
+  }, {
+    questionText: 'Who is CEO of Tesla?',
+    answerOptions: [{
+      answerText: 'Jeff Bezos',
+      isCorrect: false
+    }, {
+      answerText: 'Elon Musk',
+      isCorrect: true
+    }, {
+      answerText: 'Bill Gates',
+      isCorrect: false
+    }, {
+      answerText: 'Tony Stark',
+      isCorrect: false
+    }]
+  }, {
+    questionText: 'The iPhone was created by which company?',
+    answerOptions: [{
+      answerText: 'Apple',
+      isCorrect: true
+    }, {
+      answerText: 'Intel',
+      isCorrect: false
+    }, {
+      answerText: 'Amazon',
+      isCorrect: false
+    }, {
+      answerText: 'Microsoft',
+      isCorrect: false
+    }]
+  }, {
+    questionText: 'How many Harry Potter books are there?',
+    answerOptions: [{
+      answerText: '1',
+      isCorrect: false
+    }, {
+      answerText: '4',
+      isCorrect: false
+    }, {
+      answerText: '6',
+      isCorrect: false
+    }, {
+      answerText: '7',
+      isCorrect: true
+    }]
+  }];
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h1", null, "Good Luck ", name, "!"), /*#__PURE__*/_react.default.createElement("div", {
+    className: "app"
+  }, showScore ? /*#__PURE__*/_react.default.createElement("div", {
+    className: "score-section"
+  }, /*#__PURE__*/_react.default.createElement("p", null, " You scored ", score, " out of ", questions.length, " ")) : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", {
+    className: "question-section"
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "question-count"
+  }, /*#__PURE__*/_react.default.createElement("span", {
+    className: "ques"
+  }, "Question ", currentQuestion + 1), "/", questions.length), /*#__PURE__*/_react.default.createElement("div", {
+    className: "question-text"
+  }, questions[currentQuestion].questionText)), /*#__PURE__*/_react.default.createElement("div", {
+    className: "answer-section"
+  }, questions[currentQuestion].answerOptions.map((answerOption, index) => /*#__PURE__*/_react.default.createElement("button", {
+    onClick: () => handleAnswerButtonClick(answerOption.isCorrect)
+  }, answerOption.answerText))))));
+};
+
+var _default = Question;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","./questions.css":"Components/questions.css","./Message":"Components/Message.js"}],"Components/Message.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
 
 var _emotion = require("emotion");
 
+var _Questions = _interopRequireDefault(require("./Questions"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 const Message = ({
   name
 }) => {
+  const refUsername = (0, _react.useRef)();
+  const [username, setUsername] = (0, _react.useState)(null);
   const info = (0, _emotion.css)`
                 background-color:#164752;
+                font-size:1.5em;
                  color:white;
                  text-align:center;
                  padding:3em;
                  box-shadow: 0px 8px 11px 3px rgba(0,0,0,0.75);
+                 .input {
+                     font-size:1em;
+                 }
     `;
-  return /*#__PURE__*/_react.default.createElement("section", {
+
+  function handleChange(event) {
+    event.preventDefault();
+    console.log('submitted ');
+    console.log('Username: ' + refUsername.current.value); // localStorage.setItem('userName', inputVal);
+
+    const user = sessionStorage.setItem('userName', refUsername.current.value);
+    console.log(user);
+    setUsername(refUsername.current.value); // refUsername.current.value = {name}
+    // this.setState({value: event.target.value});
+  }
+
+  console.log(username); // const inputVal = refUsername.current.value
+  // console.log(inputVal)
+
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("section", {
     className: info
+  }, /*#__PURE__*/_react.default.createElement("form", {
+    action: "",
+    onSubmit: event => handleChange(event)
   }, /*#__PURE__*/_react.default.createElement("h1", null, "Please enter your name to continue!"), /*#__PURE__*/_react.default.createElement("input", {
+    className: "input",
     type: "text",
-    name: "",
-    id: "",
     placeholder: "name",
-    value: name,
-    onSubmit: ""
-  }));
+    ref: refUsername
+  }), " ", name, /*#__PURE__*/_react.default.createElement("input", {
+    type: "submit"
+  }))), username ? /*#__PURE__*/_react.default.createElement(_Questions.default, {
+    name: username
+  }) : null);
 };
 
 var _default = Message;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","emotion":"../node_modules/emotion/dist/emotion.esm.js"}],"Components/Main.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","emotion":"../node_modules/emotion/dist/emotion.esm.js","./Questions":"Components/Questions.js"}],"Components/Main.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -32734,9 +32964,13 @@ var _emotion = require("emotion");
 
 var _Message = _interopRequireDefault(require("./Message"));
 
+var _Questions = _interopRequireDefault(require("./Questions"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const Main = () => {
+  const user = sessionStorage.getItem('userName');
+  console.log(user);
   const grid = (0, _emotion.css)`
     display:grid;
     margin:0;
@@ -32751,7 +32985,7 @@ const Main = () => {
 background-color : #1394B0;
              .info {
                  background-color:#164752;
-                 /* border: 1px solid white; */
+                 font-size:2em;
                  color:white;
                  text-align:center;
                  padding:1em;
@@ -32781,30 +33015,12 @@ background-color : #1394B0;
     className: "quiz"
   }, "Quizz App")), /*#__PURE__*/_react.default.createElement("section", {
     className: part
-  }, /*#__PURE__*/_react.default.createElement(_Message.default, null)));
+  }, /*#__PURE__*/_react.default.createElement(_Message.default, null, " ")));
 };
 
 var _default = Main;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","emotion":"../node_modules/emotion/dist/emotion.esm.js","./Message":"Components/Message.js"}],"Components/Questions.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-const Question = () => {
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h1", null, "hi"));
-};
-
-var _default = Question;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"App.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","emotion":"../node_modules/emotion/dist/emotion.esm.js","./Message":"Components/Message.js","./Questions":"Components/Questions.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -32820,7 +33036,9 @@ var _Questions = _interopRequireDefault(require("./Components/Questions"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const App = () => {
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_Main.default, null, /*#__PURE__*/_react.default.createElement(_router.Router, null, /*#__PURE__*/_react.default.createElement(_Questions.default, null))));
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_Main.default, null, /*#__PURE__*/_react.default.createElement(_router.Router, null, /*#__PURE__*/_react.default.createElement(_Questions.default, {
+    path: "/:name/*"
+  }))));
 };
 
 (0, _reactDom.render)( /*#__PURE__*/_react.default.createElement(App, null), document.querySelector("#root"));
@@ -32852,7 +33070,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60853" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57657" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

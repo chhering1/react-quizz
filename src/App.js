@@ -9,8 +9,9 @@ const App = () => {
         <>
          <Main>
                  <Router>
-                    <Question />
+                    <Question path="/:name/*"/>
                 </Router>
+
           </Main>
           </>
     );
