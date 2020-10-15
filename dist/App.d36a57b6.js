@@ -32766,10 +32766,6 @@ var _react = _interopRequireWildcard(require("react"));
 
 require("./questions.css");
 
-var _Message = _interopRequireDefault(require("./Message"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
@@ -32777,8 +32773,8 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 const Question = ({
   name
 }) => {
-  const user = localStorage.getItem('userName');
-  console.log(user);
+  const user = localStorage.getItem('userName'); // console.log(user)
+
   const [currentQuestion, setCurrentQuestion] = (0, _react.useState)(0);
   const [showScore, setShowScore] = (0, _react.useState)(false);
   const [score, setScore] = (0, _react.useState)(0);
@@ -32799,71 +32795,116 @@ const Question = ({
   };
 
   const questions = [{
-    questionText: 'What is the capital of France?',
+    questionText: 'What is my middle name?',
     answerOptions: [{
-      answerText: 'New York',
+      answerText: 'Dolma',
       isCorrect: false
     }, {
-      answerText: 'London',
+      answerText: 'Sonam',
       isCorrect: false
     }, {
-      answerText: 'Paris',
+      answerText: 'Yangchan',
       isCorrect: true
     }, {
-      answerText: 'Dublin',
+      answerText: 'Wangdi',
       isCorrect: false
     }]
   }, {
-    questionText: 'Who is CEO of Tesla?',
+    questionText: 'How many teeths do I have?',
     answerOptions: [{
-      answerText: 'Jeff Bezos',
+      answerText: '28',
       isCorrect: false
     }, {
-      answerText: 'Elon Musk',
+      answerText: '32',
       isCorrect: true
     }, {
-      answerText: 'Bill Gates',
+      answerText: '30',
       isCorrect: false
     }, {
-      answerText: 'Tony Stark',
+      answerText: '29',
       isCorrect: false
     }]
   }, {
-    questionText: 'The iPhone was created by which company?',
+    questionText: 'What is my zodiac sign?',
     answerOptions: [{
-      answerText: 'Apple',
+      answerText: 'Gemini',
       isCorrect: true
     }, {
-      answerText: 'Intel',
+      answerText: 'Cancer',
       isCorrect: false
     }, {
-      answerText: 'Amazon',
+      answerText: 'Taurus',
       isCorrect: false
     }, {
-      answerText: 'Microsoft',
+      answerText: 'Leo',
       isCorrect: false
     }]
   }, {
-    questionText: 'How many Harry Potter books are there?',
+    questionText: 'What is my birth month?',
     answerOptions: [{
-      answerText: '1',
+      answerText: 'April',
       isCorrect: false
     }, {
-      answerText: '4',
+      answerText: 'January',
       isCorrect: false
     }, {
-      answerText: '6',
+      answerText: 'August',
       isCorrect: false
     }, {
-      answerText: '7',
+      answerText: 'March',
       isCorrect: true
+    }]
+  }, {
+    questionText: 'What do I love eating the most?',
+    answerOptions: [{
+      answerText: 'Burger',
+      isCorrect: false
+    }, {
+      answerText: 'Pizza',
+      isCorrect: false
+    }, {
+      answerText: 'Salat',
+      isCorrect: false
+    }, {
+      answerText: 'Dumpling',
+      isCorrect: true
+    }]
+  }, {
+    questionText: 'What is my favorite Color?',
+    answerOptions: [{
+      answerText: 'Pink',
+      isCorrect: false
+    }, {
+      answerText: 'Black',
+      isCorrect: false
+    }, {
+      answerText: 'Red',
+      isCorrect: false
+    }, {
+      answerText: 'Sky Blue',
+      isCorrect: true
+    }]
+  }, {
+    questionText: 'What is my favorite Activity?',
+    answerOptions: [{
+      answerText: 'Walking',
+      isCorrect: false
+    }, {
+      answerText: 'Reading',
+      isCorrect: false
+    }, {
+      answerText: 'Swimming',
+      isCorrect: true
+    }, {
+      answerText: 'Cycling',
+      isCorrect: false
     }]
   }];
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h1", null, "Good Luck ", name, "!"), /*#__PURE__*/_react.default.createElement("div", {
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h1", null, "Good Luck ", name, "!"), /*#__PURE__*/_react.default.createElement("div", {
     className: "app"
   }, showScore ? /*#__PURE__*/_react.default.createElement("div", {
     className: "score-section"
-  }, /*#__PURE__*/_react.default.createElement("p", null, " You scored ", score, " out of ", questions.length, " ")) : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", {
+  }, score == 1 && /*#__PURE__*/_react.default.createElement("p", null, " You don't know me well \uD83D\uDE22 "), score == 2 && /*#__PURE__*/_react.default.createElement("p", null, " You don't know me well \uD83D\uDE22 "), score == 3 && /*#__PURE__*/_react.default.createElement("p", null, " You don't know me well \uD83D\uDE22 "), score == 4 && /*#__PURE__*/_react.default.createElement("p", null, " You need to know me some more  \uD83D\uDE09 "), score == 5 && /*#__PURE__*/_react.default.createElement("p", null, " You know me well \uD83D\uDE0A "), score == 6 && /*#__PURE__*/_react.default.createElement("p", null, " You know me well \uD83D\uDE0A "), score == questions.length && /*#__PURE__*/_react.default.createElement("p", null, " You have my heart \u2764\uFE0F")) : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", {
     className: "question-section"
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "question-count"
@@ -32874,13 +32915,14 @@ const Question = ({
   }, questions[currentQuestion].questionText)), /*#__PURE__*/_react.default.createElement("div", {
     className: "answer-section"
   }, questions[currentQuestion].answerOptions.map((answerOption, index) => /*#__PURE__*/_react.default.createElement("button", {
+    className: "btns",
     onClick: () => handleAnswerButtonClick(answerOption.isCorrect)
-  }, answerOption.answerText))))));
+  }, answerOption.answerText)))))));
 };
 
 var _default = Question;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./questions.css":"Components/questions.css","./Message":"Components/Message.js"}],"Components/Message.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./questions.css":"Components/questions.css"}],"Components/Message.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -32903,17 +32945,27 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 const Message = ({
   name
 }) => {
+  // {console.log({name})}
   const refUsername = (0, _react.useRef)();
   const [username, setUsername] = (0, _react.useState)(null);
   const info = (0, _emotion.css)`
                 background-color:#164752;
-                font-size:1.5em;
+                font-size:1em;
                  color:white;
+                 margin:auto;
                  text-align:center;
-                 padding:3em;
+                 padding:1em;
                  box-shadow: 0px 8px 11px 3px rgba(0,0,0,0.75);
                  .input {
                      font-size:1em;
+                 }
+                 .submitbtn {
+                     margin-top:1em;
+                 color:white;
+                 padding:0.5em;
+                 outline:none;
+/* border:none; */
+                    background-color:#1394B0;
                  }
     `;
 
@@ -32924,28 +32976,26 @@ const Message = ({
 
     const user = sessionStorage.setItem('userName', refUsername.current.value);
     console.log(user);
-    setUsername(refUsername.current.value); // refUsername.current.value = {name}
-    // this.setState({value: event.target.value});
+    setUsername(refUsername.current.value);
   }
 
-  console.log(username); // const inputVal = refUsername.current.value
-  // console.log(inputVal)
-
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("section", {
+  console.log(username);
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, username ? /*#__PURE__*/_react.default.createElement(_Questions.default, {
+    name: username
+  }) : /*#__PURE__*/_react.default.createElement("section", {
     className: info
   }, /*#__PURE__*/_react.default.createElement("form", {
-    action: "",
+    action: /*#__PURE__*/_react.default.createElement(_Questions.default, null),
     onSubmit: event => handleChange(event)
   }, /*#__PURE__*/_react.default.createElement("h1", null, "Please enter your name to continue!"), /*#__PURE__*/_react.default.createElement("input", {
     className: "input",
     type: "text",
-    placeholder: "name",
-    ref: refUsername
-  }), " ", name, /*#__PURE__*/_react.default.createElement("input", {
-    type: "submit"
-  }))), username ? /*#__PURE__*/_react.default.createElement(_Questions.default, {
-    name: username
-  }) : null);
+    id: "name",
+    ref: refUsername,
+    placeholder: "your name"
+  }), " ", name, " ", /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("button", {
+    className: "submitbtn"
+  }, "Submit"))));
 };
 
 var _default = Message;
@@ -32971,51 +33021,22 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const Main = () => {
   const user = sessionStorage.getItem('userName');
   console.log(user);
-  const grid = (0, _emotion.css)`
-    display:grid;
-    margin:0;
-    height:100vh;
-    grid-template-columns:1fr 1fr;
-    `;
-  const part = (0, _emotion.css)`
-    padding: 10em;
+  const main = (0, _emotion.css)`
+    height:auto;
     text-align:center;
-/* align-content:center; */
-    /* border:1px solid white; */
-background-color : #1394B0;
-             .info {
-                 background-color:#164752;
-                 font-size:2em;
-                 color:white;
-                 text-align:center;
-                 padding:1em;
-                 box-shadow: 0px 8px 11px 3px rgba(0,0,0,0.75);
-             }
+    padding-bottom:5em;
+    /* background-color : #1394B0; */
     `;
-  const style = (0, _emotion.css)`
-    /* width:50%; */
-    
-    background-color : #73D9F0;
-    .react {
-        color : #164752;
-        font-size:10em;
-    }
-    .quiz {
-        color:white;
-        font-size:10em;
-    }
+  const title = (0, _emotion.css)`
+    font-size:2em;
+    /* color:white; */
+    padding-top:1em;
     `;
-  return /*#__PURE__*/_react.default.createElement("div", {
-    className: grid
-  }, /*#__PURE__*/_react.default.createElement("main", {
-    className: style
+  return /*#__PURE__*/_react.default.createElement("main", {
+    className: main
   }, /*#__PURE__*/_react.default.createElement("h1", {
-    className: "react"
-  }, "React "), /*#__PURE__*/_react.default.createElement("h2", {
-    className: "quiz"
-  }, "Quizz App")), /*#__PURE__*/_react.default.createElement("section", {
-    className: part
-  }, /*#__PURE__*/_react.default.createElement(_Message.default, null, " ")));
+    className: title
+  }, "How well do you know me?  "), /*#__PURE__*/_react.default.createElement(_Message.default, null, " "));
 };
 
 var _default = Main;
@@ -33070,7 +33091,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57657" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62960" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import './questions.css'
-import Message from './Message';
+
 
 const Question = ( {name}) => {
 	const user = localStorage.getItem('userName') ;
-console.log(user)
+// console.log(user)
 	const [currentQuestion, setCurrentQuestion] = useState(0);
 	
 	const [showScore, setShowScore] = useState(false);
@@ -27,57 +27,92 @@ console.log(user)
     };
     
 
-    
-   
     const questions = [
 		{
-			questionText: 'What is the capital of France?',
+			questionText: 'What is my middle name?',
 			answerOptions: [
-				{ answerText: 'New York', isCorrect: false },
-				{ answerText: 'London', isCorrect: false },
-				{ answerText: 'Paris', isCorrect: true },
-				{ answerText: 'Dublin', isCorrect: false },
+				{ answerText: 'Dolma', isCorrect: false },
+				{ answerText: 'Sonam', isCorrect: false },
+				{ answerText: 'Yangchan', isCorrect: true },
+				{ answerText: 'Wangdi', isCorrect: false },
 			],
 		},
 		{
-			questionText: 'Who is CEO of Tesla?',
+			questionText: 'How many teeths do I have?',
 			answerOptions: [
-				{ answerText: 'Jeff Bezos', isCorrect: false },
-				{ answerText: 'Elon Musk', isCorrect: true },
-				{ answerText: 'Bill Gates', isCorrect: false },
-				{ answerText: 'Tony Stark', isCorrect: false },
+				{ answerText: '28', isCorrect: false },
+				{ answerText: '32', isCorrect: true },
+				{ answerText: '30', isCorrect: false },
+				{ answerText: '29', isCorrect: false },
 			],
 		},
 		{
-			questionText: 'The iPhone was created by which company?',
+			questionText: 'What is my zodiac sign?',
 			answerOptions: [
-				{ answerText: 'Apple', isCorrect: true },
-				{ answerText: 'Intel', isCorrect: false },
-				{ answerText: 'Amazon', isCorrect: false },
-				{ answerText: 'Microsoft', isCorrect: false },
+				{ answerText: 'Gemini', isCorrect: true },
+				{ answerText: 'Cancer', isCorrect: false },
+				{ answerText: 'Taurus', isCorrect: false },
+				{ answerText: 'Leo', isCorrect: false },
 			],
 		},
 		{
-			questionText: 'How many Harry Potter books are there?',
+			questionText: 'What is my birth month?',
 			answerOptions: [
-				{ answerText: '1', isCorrect: false },
-				{ answerText: '4', isCorrect: false },
-				{ answerText: '6', isCorrect: false },
-				{ answerText: '7', isCorrect: true },
+				{ answerText: 'April', isCorrect: false },
+				{ answerText: 'January', isCorrect: false },
+				{ answerText: 'August', isCorrect: false },
+				{ answerText: 'March', isCorrect: true },
+			],
+		},
+		{
+			questionText: 'What do I love eating the most?',
+			answerOptions: [
+				{ answerText: 'Burger', isCorrect: false },
+				{ answerText: 'Pizza', isCorrect: false },
+				{ answerText: 'Salat', isCorrect: false },
+				{ answerText: 'Dumpling', isCorrect: true },
+			],
+		},
+		{
+			questionText: 'What is my favorite Color?',
+			answerOptions: [
+				{ answerText: 'Pink', isCorrect: false },
+				{ answerText: 'Black', isCorrect: false },
+				{ answerText: 'Red', isCorrect: false },
+				{ answerText: 'Sky Blue', isCorrect: true },
+			],
+		},
+		{
+			questionText: 'What is my favorite Activity?',
+			answerOptions: [
+				{ answerText: 'Walking', isCorrect: false },
+				{ answerText: 'Reading', isCorrect: false },
+				{ answerText: 'Swimming', isCorrect: true},
+				{ answerText: 'Cycling', isCorrect: false },
 			],
 		},
 	];
 
     return ( 
 		<>
+		<div>
 		<h1>Good Luck {name}!</h1>
-
         <div className='app'>
 			{/* HINT: replace "false" with logic to display the 
       score when the user has answered all the questions */}
 			{showScore ? (
-				<div className='score-section'>
-				<p>	You scored {score} out of {questions.length} </p></div>
+				<div className='score-section'> 
+				{ score == 1 && <p> You don't know me well 😢 </p> }
+				{ score == 2 && <p> You don't know me well 😢 </p> }
+				{ score == 3 && <p> You don't know me well 😢 </p> }
+				{ score == 4 && <p> You need to know me some more  😉 </p> }
+				{ score == 5 && <p> You know me well 😊 </p> }
+				{ score == 6 && <p> You know me well 😊 </p> }
+				{ score == questions.length && <p> You have my heart ❤️</p> }
+
+
+				
+				</div>
 			) : (
 				<>
 					<div className='question-section'>
@@ -88,13 +123,15 @@ console.log(user)
 					</div>
 					<div className='answer-section'>
                     {questions[currentQuestion].answerOptions.map((answerOption, index) => (
-		<button  onClick={ () => handleAnswerButtonClick(answerOption.isCorrect)}>{answerOption.answerText}</button>
+		<button className='btns' onClick={ () => handleAnswerButtonClick(answerOption.isCorrect)}>{answerOption.answerText}</button>
 	))}
 					</div>
 				</>
 			)}
 		</div>
+		</div>
 		</>
+
       );
 }
  
