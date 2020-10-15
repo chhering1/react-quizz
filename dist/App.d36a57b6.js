@@ -32922,7 +32922,9 @@ const Question = ({
 
 var _default = Question;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./questions.css":"Components/questions.css"}],"Components/Message.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./questions.css":"Components/questions.css"}],"tenor.gif":[function(require,module,exports) {
+module.exports = "/tenor.d0aa8bde.gif";
+},{}],"Components/Message.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -32936,6 +32938,8 @@ var _emotion = require("emotion");
 
 var _Questions = _interopRequireDefault(require("./Questions"));
 
+var _tenor = _interopRequireDefault(require("../tenor.gif"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
@@ -32945,26 +32949,32 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 const Message = ({
   name
 }) => {
-  // {console.log({name})}
   const refUsername = (0, _react.useRef)();
   const [username, setUsername] = (0, _react.useState)(null);
   const info = (0, _emotion.css)`
                 background-color:#164752;
                 font-size:1em;
                  color:white;
-                 margin:auto;
-                 text-align:center;
+                 margin:1em;
+                 height:50vh;
+                 align-items:center;
+                 justify-content:center;
                  padding:1em;
                  box-shadow: 0px 8px 11px 3px rgba(0,0,0,0.75);
                  .input {
                      font-size:1em;
                  }
+                 .gif {
+                     background-color:transparent;
+                 }
                  .submitbtn {
+                     border-radius:2em;
                      margin-top:1em;
                  color:white;
-                 padding:0.5em;
-                 outline:none;
-/* border:none; */
+                 padding:0.3em 1em ;
+                 
+border:none;
+box-shadow:2px 2px 4px grey;
                     background-color:#1394B0;
                  }
     `;
@@ -32972,8 +32982,7 @@ const Message = ({
   function handleChange(event) {
     event.preventDefault();
     console.log('submitted ');
-    console.log('Username: ' + refUsername.current.value); // localStorage.setItem('userName', inputVal);
-
+    console.log('Username: ' + refUsername.current.value);
     const user = sessionStorage.setItem('userName', refUsername.current.value);
     console.log(user);
     setUsername(refUsername.current.value);
@@ -32984,7 +32993,11 @@ const Message = ({
     name: username
   }) : /*#__PURE__*/_react.default.createElement("section", {
     className: info
-  }, /*#__PURE__*/_react.default.createElement("form", {
+  }, /*#__PURE__*/_react.default.createElement("img", {
+    className: "gif",
+    src: _tenor.default,
+    alt: ""
+  }), /*#__PURE__*/_react.default.createElement("form", {
     action: /*#__PURE__*/_react.default.createElement(_Questions.default, null),
     onSubmit: event => handleChange(event)
   }, /*#__PURE__*/_react.default.createElement("h1", null, "Please enter your name to continue!"), /*#__PURE__*/_react.default.createElement("input", {
@@ -32992,7 +33005,7 @@ const Message = ({
     type: "text",
     id: "name",
     ref: refUsername,
-    placeholder: "your name"
+    placeholder: "your name here"
   }), " ", name, " ", /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("button", {
     className: "submitbtn"
   }, "Submit"))));
@@ -33000,7 +33013,7 @@ const Message = ({
 
 var _default = Message;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","emotion":"../node_modules/emotion/dist/emotion.esm.js","./Questions":"Components/Questions.js"}],"Components/Main.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","emotion":"../node_modules/emotion/dist/emotion.esm.js","./Questions":"Components/Questions.js","../tenor.gif":"tenor.gif"}],"Components/Main.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -33022,10 +33035,12 @@ const Main = () => {
   const user = sessionStorage.getItem('userName');
   console.log(user);
   const main = (0, _emotion.css)`
-    height:auto;
+    height:80vh;
+    max-width:500px;
+    margin:auto;
     text-align:center;
     padding-bottom:5em;
-    /* background-color : #1394B0; */
+    background-color : #1394B0;
     `;
   const title = (0, _emotion.css)`
     font-size:2em;
@@ -33091,7 +33106,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62960" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49873" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

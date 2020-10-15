@@ -8,10 +8,12 @@ const Main = () => {
 console.log(user) 
 
     const main = css`
-    height:auto;
+    height:80vh;
+    max-width:500px;
+    margin:auto;
     text-align:center;
     padding-bottom:5em;
-    /* background-color : #1394B0; */
+    background-color : #1394B0;
     `;
     const title = css`
     font-size:2em;
