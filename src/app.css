@@ -1,0 +1,8 @@
+body{
+    margin-top:-2em;
+    padding-bottom: 2em;
+    /* border:2px solid red; */
+}
+@media screen and (max-width:500px) {
+    .info { padding:0;}
+}

@@ -1,15 +1,20 @@
-import React from "react";
+import React from 'react';
 import { render } from "react-dom";
-import { Router, Link } from "@reach/router";
+import { Router} from "@reach/router";
+import Main from "./Components/Main";
+import Question from "./Components/Questions";
+
 
 const App = () => {
     return (
-        
-
-                <Router>
-                    <Home path="/" />   
+        <>
+         <Main>
+                 <Router>
+                    <Question path="/:name/*"/>
                 </Router>
-           
+
+          </Main>
+          </>
     );
 };
 render(<App />, document.querySelector("#root"));
